@@ -1,0 +1,108 @@
+<script>
+const gifPaths = [
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/dancing_unicorn.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/penguin_spin.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/raccoon_sax.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/dancing_moon.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/dj_stitch.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/ant.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/alien.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/granny.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/ghostrave.gif",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/gifs/monkey.gif",
+];
+
+// CONFIG
+const gifCount = 25;
+const lifeSpan = 28000;
+const minSize = 100;
+const maxSize = 250;
+const effects = ['floaty', 'drift', 'spin', 'wiggle', 'pulse'];
+const durations = [2, 4, 6];
+const columns = 5; // how many “slots” across screen
+const rows = 5;    // how many “slots” down screen
+
+let lastUsedGif = null;
+
+// Helper: create sparkles near a GIF
+function spawnSparkle(x, y) {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'sparkle';
+  sparkle.style.left = x + Math.random() * 40 - 20 + 'px';
+  sparkle.style.top  = y + Math.random() * 40 - 20 + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 14000);
+}
+
+// Generate grid slots for spacing
+const positions = [];
+for (let r = 0; r < rows; r++) {
+  for (let c = 0; c < columns; c++) {
+    positions.push({
+      left: (c * (100 / columns)) + (Math.random() * (100 / columns / 2)) + '%',
+      top: (r * (100 / rows)) + (Math.random() * (100 / rows / 2)) + '%'
+    });
+  }
+}
+
+// Shuffle positions
+for (let i = positions.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [positions[i], positions[j]] = [positions[j], positions[i]];
+}
+
+for (let i = 0; i < gifCount && i < positions.length; i++) {
+  let gifSrc;
+  do {
+    gifSrc = gifPaths[Math.floor(Math.random() * gifPaths.length)];
+  } while (gifSrc === lastUsedGif && gifPaths.length > 1);
+  lastUsedGif = gifSrc;
+
+  // Wrapper handles drifting
+  const wrapper = document.createElement('div');
+  wrapper.className = 'drift-wrapper';
+  const direction = Math.random() > 0.5 ? 1 : -1;
+
+  // pick a random drift cycle time from durations
+  const driftDuration = durations[Math.floor(Math.random() * durations.length)];
+  const driftSpeed = (Math.random() * 1.5 + 1.5); // randomize overall timing
+  wrapper.style.animation = `gentleDrift ${driftDuration * driftSpeed}s linear infinite`;
+
+  wrapper.style.transform = `scaleX(${direction})`;
+  wrapper.style.position = 'absolute';
+  wrapper.style.left = positions[i].left;
+  wrapper.style.top = positions[i].top;
+  wrapper.style.zIndex = 9999;
+
+
+  // The actual GIF inside
+  const img = document.createElement('img');
+  img.src = gifSrc;
+  img.className = 'floating-gif';
+  const size = Math.random() * (maxSize - minSize) + minSize;
+  img.style.width = size + 'px';
+
+  // Add random spin/pulse/etc
+  const effect = effects[Math.floor(Math.random() * effects.length)];
+  const effectDuration = durations[Math.floor(Math.random() * durations.length)];
+  img.style.animation = `
+    ${effect} ${effectDuration}s ease-in-out infinite,
+    fadeFloat ${lifeSpan/1000}s ease-in-out forwards
+  `;
+
+  wrapper.appendChild(img);
+  document.body.appendChild(wrapper);
+
+  // Sparkles follow the wrapper (drifting element)
+  const sparkleInterval = setInterval(() => {
+    const rect = wrapper.getBoundingClientRect();
+    spawnSparkle(rect.left + rect.width/2, rect.top + rect.height/2);
+  }, 300 + Math.random() * 400);
+
+  setTimeout(() => {
+    clearInterval(sparkleInterval);
+    wrapper.remove();
+  }, lifeSpan);
+}
+
+</script>

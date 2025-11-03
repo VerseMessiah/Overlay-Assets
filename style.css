@@ -1,0 +1,76 @@
+/* 🌟 BASE STYLING */
+.floating-gif {
+  position: absolute;
+  z-index: 9999;
+  opacity: 0;
+  transform-origin: center center;
+  animation-fill-mode: forwards;
+  transition: opacity 1s ease-out;
+  filter: drop-shadow(0 0 15px rgba(255,255,255,0.8))
+          drop-shadow(0 0 25px rgba(173,216,255,0.6));
+}
+
+/* ✨ SPARKLE PARTICLES */
+.sparkle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 9998;
+  animation: sparkleFade 1s ease-out forwards;
+}
+
+@keyframes sparkleFade {
+  0%   { transform: scale(0.3) translateY(0); opacity: 0.8; }
+  100% { transform: scale(1.5) translateY(-30px); opacity: 0; }
+}
+
+/* ✨ MOTION EFFECTS */
+@keyframes floaty {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-25px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+  200% { transform: translateY(0) scale(2); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* ✨ FADE IN / OUT + FLOAT UP */
+@keyframes fadeFloat {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+  10% { opacity: 1; transform: translateY(0) scale(1); }
+  90% { opacity: 1; transform: translateY(-15px) scale(1.05); }
+  100% { opacity: 0; transform: translateY(-30px) scale(0.9); }
+}
+
+@keyframes gentleDrift {
+  0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+  12.5%  { transform: translate(75px, -25px) rotate(12deg) scale(1.125); }
+  25%  { transform: translate(150px, -50px) rotate(20deg) scale(1.02); }
+  50%  { transform: translate(300, -100px) rotate(-25deg) scale(1.05); }
+  62.5%  { transform: translate(150px, -125px) rotate(25deg) scale(1.625); }
+  75%  { transform: translate(-300px, -100px) rotate(-50deg) scale(0.75); }
+  100% { transform: translate(600, -200) rotate(0deg) scale(1); }
+  150%  { transform: translate(900px, -300px) rotate(90deg) scale(1.5); }
+  200%  { transform: translate(1200px, -400px) rotate(180deg) scale(2); }
+}
+
+.drift.wrapper {
+  will-change: transform;
+}
