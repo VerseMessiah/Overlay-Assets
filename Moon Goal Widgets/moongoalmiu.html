@@ -1,0 +1,89 @@
+<div id="goalWidget" class="goal-widget goal-tip">
+  <div class="content">
+    <div class="progress-cont">
+      <div class="clipping_mask">
+        <!-- Wave mask for fill animation -->
+        <svg width="650px" height="470px" viewBox="0 0 306.15 227.32" style="position: absolute; top: 50px;">
+          <clipPath id="movementclipping_mask">
+            <path transform="translate(14.5,0) scale(3)"
+              d="M0,3.07c10.94,0,10.94,4.6,21.87,4.6s10.94-4.6,21.87-4.6,10.94,4.6,21.87,4.6,10.93-4.6,21.87-4.6,10.93,4.6,21.87,4.6,10.93-4.6,21.86-4.6,10.94,4.6,21.87,4.6,10.93-4.6,21.86-4.6,10.94,4.6,21.87,4.6,10.93-4.6,21.87-4.6,10.93,4.6,21.86,4.6,10.94-4.6,21.87-4.6,10.94,4.6,21.87,4.6,10.94-4.6,21.88-4.6V98.84H0Z" />
+          </clipPath>
+        </svg>
+
+        <!-- Circle mask for moon -->
+        <svg width="200" height="209" viewBox="0 0 236.67 228.75" style="position: absolute;">
+          <clipPath id="fillclipping_mask">
+            <path transform="translate(-6.67 -10.63) scale(0.80)"
+              d="M243.09,120A113.09,113.09,0,1,1,130,6.91,113.09,113.09,0,0,1,243.09,120Z" />
+          </clipPath>
+        </svg>
+
+        <!-- Water/energy fill -->
+        <div class="fill"></div>
+        <div class="fill2"></div>
+
+        <!-- Local moon video -->
+        <video class="shape-box" src="C:\Users\cjdam\OneDrive\Desktop\Streaming\Tools\Overlays\Blood Moon Goal widget\MIU Version\Full Moon.webm" autoplay loop muted playsinline></video>
+
+        <!-- Optional floating circles (particles) -->
+        <div class="circle h1"></div>
+        <div class="circle h2"></div>
+        <div class="circle h3"></div>
+        <div class="circle h4"></div>
+        <div class="circle h5"></div>
+        <div class="circle h6"></div>
+        <div class="circle h7"></div>
+        <div class="circle h8"></div>
+        <div class="circle h9"></div>
+        <div class="circle h10"></div>
+      </div>
+    </div>
+
+    <!-- Front art (moon frame, etc.) – replace src with your image if desired -->
+    <img class="front" src="https://cdn.streamelements.com/uploads/01jwxkcpbbezxahe5avjha8407.png" alt="">
+    <div class="DropGlow"></div>
+
+    <!-- Back halo -->
+    <div class="backdrop">
+      <svg width="266.66666" height="240" viewBox="0 0 242.1 234">
+        <path transform="translate(-13.95 -3) scale(0.76)"
+          style="fill:#000000;fill-opacity:0.4;stroke-width:8;stroke-linecap:round"
+          d="M243.09,120A113.09,113.09,0,1,1,130,6.91,113.09,113.09,0,0,1,243.09,120Z" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Text block (bottom + right variants) -->
+  <div class="textelement">
+    <div class="textright">
+      <div class="title" id="goalTitleRight"></div>
+      <p class="text1" id="goalTextRight"></p>
+    </div>
+    <div class="textbottom">
+      <div class="title" id="goalTitleBottom"></div>
+      <p class="text1" id="goalTextBottom"></p>
+    </div>
+  </div>
+</div>
+
+<!-- === POPUP SPOTLIGHT OVERLAY (2x size) === -->
+<div id="goal-spotlight" class="goal-spotlight">
+  <div class="goal-spotlight-inner">
+    <div class="goal-spotlight-video-wrap">
+      <video
+        class="goal-spotlight-video"
+        src="https://github.com/VerseMessiah/Overlay-Assets/raw/refs/heads/main/webms/FullMoon.webm"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+    </div>
+    <div class="goal-spotlight-text">
+      <div class="goal-spotlight-title">Goal</div>
+      <div class="goal-spotlight-message">New event</div>
+      <div class="goal-spotlight-progress">0 / 0 (0%)</div>
+    </div>
+  </div>
+</div>
+
