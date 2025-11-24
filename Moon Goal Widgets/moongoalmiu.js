@@ -40,7 +40,8 @@ let currentGoalKey = cycleOrder[0];
 
 // Cache main widget DOM
 const mainRoot =
-  document.getElementById("content") ||
+  document.querySelector("#goalWidget") ||    // ← best anchor
+  document.querySelector(".goal-widget") ||
   document.querySelector(".content") ||
   document.body;
 
@@ -106,7 +107,14 @@ renderMainGoal();
 
 // Called from MixItUp when you update a given goal's progress
 function updateGoalState(goalType, current, target) {
-  const key = String(goalType || "").toLowerCase();
+  let key = String(goalType || "").toLowerCase().trim();
+
+  // Normalize MixItUp goal widget types
+  if (key === "followers" || key === "follow") key = "follower";
+  if (key === "subscribers" || key === "sub" || key === "subscription") key = "sub";
+  if (key === "bits" || key === "cheer" || key === "cheers") key = "bits";
+  if (key === "donations" || key === "donation" || key === "charity") key = "charity";
+
   const goal = goals[key];
   if (!goal) return;
 

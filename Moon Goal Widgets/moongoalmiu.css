@@ -1,16 +1,64 @@
-/* ========= BASE VARIABLES ========= */
+/* =========================================
+   VERSEMESSIAH BRAND PALETTE (BRAND GUIDE)
+   ========================================= */
+
+:root {
+  /* Core Blues */
+  --vm-deep-navy:        #0c0f1a;
+  --vm-midnight-blue:    #00366f;
+  --vm-vivid-blue:       #0060c7;
+  --vm-electric-sky:     #2293f8;
+  --vm-indigo-blue:      #1e3a8a;
+  --vm-sky-blue:         #1fb6ff;
+  --vm-near-black-navy:  #011627;
+  --vm-deep-space:       #0f1220;
+
+  /* Golds / Warm Tones */
+  --vm-cosmic-gold:      #f9c80e;
+  --vm-light-peach:      #ffd3b5;
+
+  /* Purples / Magentas */
+  --vm-soft-purple:      #b084f6;
+  --vm-magenta-highlight:#ff57bb;
+
+  /* Aqua / Teal */
+  --vm-neon-aqua:        #00ffd0;
+
+  /* Neutrals */
+  --vm-metallic-silver:  #c4c4c4;
+  --vm-gunmetal-gray:    #b0b0b0;
+  --vm-charcoal-gray:    #3a3a3a;
+  --vm-dark-brown:       #29211e;
+  --vm-warm-skin-shadow: #8e4f3c;
+
+  /* Whites */
+  --vm-bright-white:     #ffffff;
+}
+
+/* =========================================
+   WIDGET-LEVEL DEFAULTS
+   ========================================= */
 
 :root {
   --scale: 0.9;
-  --fill1: #f9f7fe;
-  --fill2: #f0eef0;
-  --glow: #ffffff;
-  --font-color: #ffffff;
-  --title-color: #ffffff;
-  --font-name: 'Montserrat', sans-serif;
-  --font-size: 20px;
-  --title-size: 22px;
-  --title-weight: 700;
+
+  /* Default goal colors (used as fallback / base) */
+  --goal-fill1: var(--vm-bright-white);
+  --goal-fill2: var(--vm-sky-blue);
+
+  --goal-title-color: var(--vm-bright-white);
+  --goal-font-color:  var(--vm-bright-white);
+  --goal-glow:        var(--vm-bright-white);
+
+  --goal-font-name:   'Montserrat', sans-serif;
+  --goal-font-size:   20px;
+  --goal-title-size:  22px;
+  --goal-title-weight:700;
+
+  /* Radial gradient stops (overridable per goal) */
+  --goal-radial1: var(--vm-bright-white);
+  --goal-radial2: var(--vm-sky-blue);
+  --goal-radial3: var(--vm-electric-sky);
 }
 
 body {
@@ -19,10 +67,13 @@ body {
   margin: 0;
   padding: 0;
   overflow: visible;
-  font-family: var(--font-name);
+  font-family: var(--goal-font-name);
+  background: transparent;
 }
 
-/* ========= CORE LAYOUT ========= */
+/* =========================================
+   CORE LAYOUT
+   ========================================= */
 
 .goal-widget {
   position: relative;
@@ -41,7 +92,7 @@ body {
 }
 
 .progress-cont {
-  filter: drop-shadow(0 0 8px var(--glow));
+  filter: drop-shadow(0 0 8px var(--goal-glow));
   bottom: -3px;
   position: absolute;
   width: 100%;
@@ -59,11 +110,13 @@ body {
   clip-path: url(#fillclipping_mask);
 }
 
-/* ========= FILL / WATER ========= */
+/* =========================================
+   FILL / WATER
+   ========================================= */
 
 .fill,
 .fill2 {
-  background: linear-gradient(0deg, var(--fill1) 0%, var(--fill2) 100%);
+  background: linear-gradient(0deg, var(--goal-fill1) 0%, var(--goal-fill2) 100%);
   position: absolute;
   width: 450px;
   bottom: 14px;
@@ -87,7 +140,9 @@ body {
   transform: translateX(-4%);
 }
 
-/* ========= VIDEO & FRONT ART ========= */
+/* =========================================
+   VIDEO & FRONT ART
+   ========================================= */
 
 .shape-box {
   width: 200px;
@@ -105,7 +160,9 @@ body {
   z-index: 3;
 }
 
-/* ========= BACKDROP ========= */
+/* =========================================
+   BACKDROP
+   ========================================= */
 
 .backdrop {
   zoom: 182%;
@@ -118,7 +175,9 @@ body {
   opacity: 0.6;
 }
 
-/* ========= TEXT BLOCKS ========= */
+/* =========================================
+   TEXT BLOCKS
+   ========================================= */
 
 .textelement {
   zoom: 160%;
@@ -130,11 +189,11 @@ body {
   overflow: visible;
 }
 
+/* default: bottom visible, right hidden */
 .textright,
 .textbottom {
-  color: var(--font-color);
-  font-size: var(--font-size);
-  visibility: hidden;
+  color: var(--goal-font-color);
+  font-size: var(--goal-font-size);
 }
 
 .textright {
@@ -145,6 +204,7 @@ body {
   width: 300%;
   text-align: left;
   transform: translateY(-50%);
+  visibility: hidden;
 }
 
 .textbottom {
@@ -155,16 +215,17 @@ body {
   width: 200%;
   transform: translateX(-22%);
   text-align: center;
+  visibility: visible;
 }
 
 .title {
   position: relative;
   z-index: 4;
-  font-size: var(--title-size);
-  font-family: var(--font-name);
-  color: var(--title-color);
+  font-size: var(--goal-title-size);
+  font-family: var(--goal-font-name);
+  color: var(--goal-title-color);
   margin-bottom: 0.3em;
-  font-weight: var(--title-weight);
+  font-weight: var(--goal-title-weight);
 }
 
 .text1 {
@@ -173,10 +234,21 @@ body {
 
 /* Glow for text */
 .textGlowing {
-  filter: drop-shadow(0 0 10px var(--glow));
+  filter: drop-shadow(0 0 10px var(--goal-glow));
 }
 
-/* ========= PARTICLES ========= */
+/* Safety: your text element uses class="text1" */
+.textright .text1,
+.textbottom .text1 {
+  margin: 0;
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+/* =========================================
+   PARTICLES
+   ========================================= */
 
 .circle {
   width: 10px;
@@ -189,18 +261,20 @@ body {
   background: none;
 }
 
-.h1 { transform: scale(0.9); opacity: 0.6; left: 5%;  animation: bubble 2.75s linear infinite, moveside 4s ease-in-out infinite alternate; }
-.h2 { transform: scale(0.6); opacity: 0.9; left: 17%; animation: bubble 2s linear infinite,   movesideRight 7s ease-in-out infinite alternate; }
-.h3 { transform: scale(0.6); opacity: 0.8; left: 29%; animation: bubble 3s linear infinite,   moveside 3s ease-in-out infinite alternate; }
-.h4 { transform: scale(0.75);opacity: 0.9; left: 41%; animation: bubble 4s linear infinite,   movesideRight 2s ease-in-out infinite alternate; }
-.h5 { transform: scale(0.5); opacity: 0.3; left: 53%; animation: bubble 1.5s linear infinite,  moveside 2.5s ease-in-out infinite alternate; }
-.h6 {                         opacity: 1;   left: 45%; animation: bubble 2.5s linear infinite,  moveside 5s ease-in-out infinite alternate; }
-.h7 { transform: scale(0.4); opacity: 0.6; left: 10%; animation: bubble 3.5s linear infinite,  moveside 3.5s ease-in-out infinite alternate; }
-.h8 { transform: scale(0.8); opacity: 0.8; left: 60%; animation: bubble 4.5s linear infinite,  moveside 4.5s ease-in-out infinite alternate; }
-.h9 {                         opacity: 1;   left: 0%;  animation: bubble 5.5s linear infinite,  movesideRight 6s ease-in-out infinite alternate; }
-.h10{ transform: scale(0.3); opacity: 0.8; left: 35%; animation: bubble 3.75s linear infinite, moveside 5.5s ease-in-out infinite alternate; }
+.h1  { transform: scale(0.9); opacity: 0.6; left: 5%;  animation: bubble 2.75s linear infinite, moveside      4s   ease-in-out infinite alternate; }
+.h2  { transform: scale(0.6); opacity: 0.9; left: 17%; animation: bubble 2s    linear infinite, movesideRight 7s   ease-in-out infinite alternate; }
+.h3  { transform: scale(0.6); opacity: 0.8; left: 29%; animation: bubble 3s    linear infinite, moveside      3s   ease-in-out infinite alternate; }
+.h4  { transform: scale(0.75);opacity: 0.9; left: 41%; animation: bubble 4s    linear infinite, movesideRight 2s   ease-in-out infinite alternate; }
+.h5  { transform: scale(0.5); opacity: 0.3; left: 53%; animation: bubble 1.5s  linear infinite, moveside      2.5s ease-in-out infinite alternate; }
+.h6  {                         opacity: 1;   left: 45%; animation: bubble 2.5s  linear infinite, moveside      5s   ease-in-out infinite alternate; }
+.h7  { transform: scale(0.4); opacity: 0.6; left: 10%; animation: bubble 3.5s  linear infinite, moveside      3.5s ease-in-out infinite alternate; }
+.h8  { transform: scale(0.8); opacity: 0.8; left: 60%; animation: bubble 4.5s  linear infinite, moveside      4.5s ease-in-out infinite alternate; }
+.h9  {                         opacity: 1;   left: 0%;  animation: bubble 5.5s  linear infinite, movesideRight 6s   ease-in-out infinite alternate; }
+.h10 { transform: scale(0.3); opacity: 0.8; left: 35%; animation: bubble 3.75s linear infinite, moveside      5.5s ease-in-out infinite alternate; }
 
-/* ========= KEYFRAMES ========= */
+/* =========================================
+   KEYFRAMES
+   ========================================= */
 
 @keyframes bubble {
   0%   { top: 90%; opacity: 1; transform: scale(1); }
@@ -227,58 +301,91 @@ body {
   to   { opacity: 0.6; }
 }
 
-/* ========= GOAL TYPE THEMES ========= */
+/* =========================================
+   GOAL TYPE THEMES (CSS VARS)
+   =========================================
+   These override the base --goal-* variables
+   and the radial gradient stops per goal.
+   ========================================= */
 
-/* 💰 TIP / DONATION GOAL – GOLD/BLUE */
+/* 💰 TIP / DONATION GOAL – Cosmic Gold / Indigo */
 .goal-tip {
-  --fill1: #ffd700;
-  --fill2: #4da6ff;
-  --title-color: #ffd700;
-  --font-color: #ffffff;
+  --goal-fill1: var(--vm-cosmic-gold);
+  --goal-fill2: var(--vm-indigo-blue);
+  --goal-title-color: var(--vm-cosmic-gold);
+  --goal-font-color:  var(--vm-bright-white);
+  --goal-glow:        var(--vm-cosmic-gold);
+
+  --goal-radial1: var(--vm-cosmic-gold);
+  --goal-radial2: var(--vm-vivid-blue);
+  --goal-radial3: var(--vm-sky-blue);
 }
 
-/* ⭐ SUB GOAL – PURPLE/GOLD */
+/* ⭐ SUB GOAL – Soft Purple / Cosmic Gold */
 .goal-sub {
-  --fill1: #b66bff;
-  --fill2: #fff3b0;
-  --title-color: #d7b1ff;
-  --font-color: #ffffff;
+  --goal-fill1: var(--vm-soft-purple);
+  --goal-fill2: var(--vm-cosmic-gold);
+  --goal-title-color: var(--vm-soft-purple);
+  --goal-font-color:  var(--vm-bright-white);
+  --goal-glow:        var(--vm-soft-purple);
+
+  --goal-radial1: var(--vm-soft-purple);
+  --goal-radial2: var(--vm-magenta-highlight);
+  --goal-radial3: var(--vm-cosmic-gold);
 }
 
-/* 🎉 BITS (CHEER) GOAL – BLUE / SILVER */
+/* 🎉 BITS (CHEER) GOAL – Gunmetal / Vivid Blue / Silver */
 .goal-cheer {
-  --fill1: #4aaeff;
-  --fill2: #a6b8ff;
-  --title-color: #a7cfff;
-  --font-color: #ffffff;
+  --goal-fill1: var(--vm-gunmetal-gray);
+  --goal-fill2: var(--vm-vivid-blue);
+  --goal-title-color: #e5f0ff;
+  --goal-font-color:  var(--vm-bright-white);
+  --goal-glow:        var(--vm-metallic-silver);
+
+  --goal-radial1: var(--vm-metallic-silver);
+  --goal-radial2: var(--vm-vivid-blue);
+  --goal-radial3: var(--vm-sky-blue);
 }
 
-/* 👥 FOLLOWER GOAL – WHITE / BLUE */
+/* 👥 FOLLOWER GOAL – White / Sky Blue / Electric Sky */
 .goal-follower {
-  --fill1: #e0eaff;
-  --fill2: #ffffff;
-  --title-color: #dfeaff;
-  --font-color: #ffffff;
+  --goal-fill1: var(--vm-bright-white);
+  --goal-fill2: var(--vm-sky-blue);
+  --goal-title-color: #e5f0ff;
+  --goal-font-color:  var(--vm-bright-white);
+  --goal-glow:        var(--vm-electric-sky);
+
+  --goal-radial1: var(--vm-bright-white);
+  --goal-radial2: var(--vm-sky-blue);
+  --goal-radial3: var(--vm-electric-sky);
 }
 
-/* 💜 CHARITY GOAL – TEAL / PURPLE */
+/* 💜 CHARITY GOAL – Neon Aqua / Soft Purple */
 .goal-charity {
-  --fill1: #3fd1c3;
-  --fill2: #7f5cff;
-  --title-color: #e7f9ff;
-  --font-color: #ffffff;
+  --goal-fill1: var(--vm-neon-aqua);
+  --goal-fill2: var(--vm-soft-purple);
+  --goal-title-color: #e7f9ff;
+  --goal-font-color:  var(--vm-bright-white);
+  --goal-glow:        var(--vm-neon-aqua);
+
+  --goal-radial1: var(--vm-midnight-blue);
+  --goal-radial2: var(--vm-neon-aqua);
+  --goal-radial3: var(--vm-soft-purple);
 }
 
-/* ===========================
-   THEMES BY GOAL TYPE
-   (applied to both main + popup)
-   =========================== */
+/* =========================================
+   THEMES APPLIED TO MAIN + POPUP
+   ========================================= */
 
-/* Twitch Follower Goal – white/blue */
 .goal-follower .fill,
 .goal-follower .fill2,
 .goal-follower .goal-spotlight-video-wrap {
-  background: radial-gradient(circle at 30% 20%, #ffffff 0%, #dfeaff 40%, #4a82ff 100%);
+  background: radial-gradient(
+    circle at 30% 20%,
+    var(--goal-radial1) 0%,
+    var(--goal-radial2) 40%,
+    var(--goal-radial3) 100%
+  );
 }
 
 .goal-follower .title,
@@ -290,11 +397,16 @@ body {
   color: #e5f0ff !important;
 }
 
-/* Twitch Sub Goal – purple/gold */
+/* Subs */
 .goal-sub .fill,
 .goal-sub .fill2,
 .goal-sub .goal-spotlight-video-wrap {
-  background: radial-gradient(circle at 30% 20%, #3b1f4f 0%, #b66bff 40%, #ffe9b3 100%);
+  background: radial-gradient(
+    circle at 30% 20%,
+    var(--goal-radial1) 0%,
+    var(--goal-radial2) 40%,
+    var(--goal-radial3) 100%
+  );
 }
 
 .goal-sub .title,
@@ -306,11 +418,16 @@ body {
   color: #fbe7ff !important;
 }
 
-/* Bits (Cheer) Goal – blue / silver */
+/* Bits / Cheer */
 .goal-cheer .fill,
 .goal-cheer .fill2,
 .goal-cheer .goal-spotlight-video-wrap {
-  background: radial-gradient(circle at 30% 20%, #dfeeff 0%, #4aaeff 40%, #a6b8ff 100%);
+  background: radial-gradient(
+    circle at 30% 20%,
+    var(--goal-radial1) 0%,
+    var(--goal-radial2) 40%,
+    var(--goal-radial3) 100%
+  );
 }
 
 .goal-cheer .title,
@@ -319,14 +436,19 @@ body {
 .goal-cheer .goal-spotlight-title,
 .goal-cheer .goal-spotlight-message,
 .goal-cheer .goal-spotlight-progress {
-  color: #bfe1ff !important;
+  color: #dcecff !important;
 }
 
-/* Charity Goal – teal / gold */
+/* Charity */
 .goal-charity .fill,
 .goal-charity .fill2,
 .goal-charity .goal-spotlight-video-wrap {
-  background: radial-gradient(circle at 30% 20%, #003f4f 0%, #2dc5a9 40%, #ffe9a0 100%);
+  background: radial-gradient(
+    circle at 30% 20%,
+    var(--goal-radial1) 0%,
+    var(--goal-radial2) 40%,
+    var(--goal-radial3) 100%
+  );
 }
 
 .goal-charity .title,
@@ -338,9 +460,30 @@ body {
   color: #e5fff8 !important;
 }
 
-/* ===========================
+/* Tip / Donation */
+.goal-tip .fill,
+.goal-tip .fill2,
+.goal-tip .goal-spotlight-video-wrap {
+  background: radial-gradient(
+    circle at 30% 20%,
+    var(--goal-radial1) 0%,
+    var(--goal-radial2) 40%,
+    var(--goal-radial3) 100%
+  );
+}
+
+.goal-tip .title,
+.goal-tip .textright,
+.goal-tip .textbottom,
+.goal-tip .goal-spotlight-title,
+.goal-tip .goal-spotlight-message,
+.goal-tip .goal-spotlight-progress {
+  color: var(--vm-cosmic-gold) !important;
+}
+
+/* =========================================
    SPOTLIGHT POPUP (2x size)
-   =========================== */
+   ========================================= */
 
 .goal-spotlight {
   position: absolute;
@@ -426,13 +569,4 @@ body {
     opacity: 0;
     transform: scale(2.3);
   }
-}
-
-/* Tiny fix: your text element uses class="text1" */
-.textright .text1,
-.textbottom .text1 {
-  margin: 0;
-  position: relative;
-  width: 100%;
-  display: block;
 }
