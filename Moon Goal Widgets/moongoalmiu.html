@@ -1,60 +1,43 @@
-<div id="goalWidget" class="goal-widget goal-tip">
-  <div class="content">
-    <div class="progress-cont">
-      <div class="clipping_mask">
-        <!-- Wave mask for fill animation -->
-        <svg width="650px" height="470px" viewBox="0 0 306.15 227.32" style="position: absolute; top: 50px;">
-          <clipPath id="movementclipping_mask">
-            <path transform="translate(14.5,0) scale(3)"
-              d="M0,3.07c10.94,0,10.94,4.6,21.87,4.6s10.94-4.6,21.87-4.6,10.94,4.6,21.87,4.6,10.93-4.6,21.87-4.6,10.93,4.6,21.87,4.6,10.93-4.6,21.86-4.6,10.94,4.6,21.87,4.6,10.93-4.6,21.86-4.6,10.94,4.6,21.87,4.6,10.93-4.6,21.87-4.6,10.93,4.6,21.86,4.6,10.94-4.6,21.87-4.6,10.94,4.6,21.87,4.6,10.94-4.6,21.88-4.6V98.84H0Z" />
-          </clipPath>
-        </svg>
+<!-- Goal widget (clean, masked) -->
+<div id="goalWidget" class="goal-widget goal-follower">
+  <!-- Inline SVG defs for clip paths (must be present in document) -->
+  <svg width="0" height="0" style="position:absolute;left:0;top:0;pointer-events:none" aria-hidden="true">
+    <defs>
+      <!-- circle clip for the moon (200x200 expected) -->
+      <clipPath id="vm_clip_circle" clipPathUnits="objectBoundingBox">
+        <!-- Use circle in objectBoundingBox coords (cx,cy,r are fractions) -->
+        <circle cx="0.5" cy="0.5" r="0.5"></circle>
+      </clipPath>
 
-        <!-- Circle mask for moon -->
-        <svg width="200" height="209" viewBox="0 0 236.67 228.75" style="position: absolute;">
-          <clipPath id="fillclipping_mask">
-            <path transform="translate(-6.67 -10.63) scale(0.80)"
-              d="M243.09,120A113.09,113.09,0,1,1,130,6.91,113.09,113.09,0,0,1,243.09,120Z" />
-          </clipPath>
-        </svg>
+      <!-- optional wave shape (we'll simulate in CSS, leaving a placeholder) -->
+      <clipPath id="vm_clip_wave">
+        <path d="M0 0.6 C0.125 0.52 0.25 0.68 0.375 0.62 C0.5 0.56 0.625 0.68 0.75 0.6 C0.875 0.52 1 0.66 1 0.66 L1 1 L0 1 Z" />
+      </clipPath>
+    </defs>
+  </svg>
 
-        <!-- Water/energy fill -->
-        <div class="fill"></div>
-        <div class="fill2"></div>
-
-        <!-- Local moon video -->
-        <video class="shape-box" src="https://github.com/VerseMessiah/Overlay-Assets/raw/refs/heads/main/webms/FullMoon.webm" autoplay loop muted playsinline></video>
-        <!-- Optional floating circles (particles) -->
-        <div class="circle h1"></div>
-        <div class="circle h2"></div>
-        <div class="circle h3"></div>
-        <div class="circle h4"></div>
-        <div class="circle h5"></div>
-        <div class="circle h6"></div>
-        <div class="circle h7"></div>
-        <div class="circle h8"></div>
-        <div class="circle h9"></div>
-        <div class="circle h10"></div>
+  <div class="moon-wrap">
+    <!-- everything inside this container will be clipped by the circle -->
+    <div class="moon-clip" style="clip-path: url(#vm_clip_circle); -webkit-clip-path: url(#vm_clip_circle);">
+      <!-- FILL (behind the moon video, grows from bottom) -->
+      <div class="moon-fill" aria-hidden="true">
+        <div class="moon-fill-wave wave-a"></div>
+        <div class="moon-fill-wave wave-b"></div>
       </div>
-    </div>
 
-    <!-- Front art (moon frame, etc.) – replace src with your image if desired -->
-    <img class="front" src="https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/moon.png" alt="">
-    <div class="DropGlow"></div>
+      <!-- moon texture/video (always visible) -->
+      <video class="moon-video"
+             src="https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/webms/FullMoon.webm"
+             autoplay loop muted playsinline></video>
 
-    <!-- Back halo -->
-    <div class="backdrop">
-      <svg width="266.66666" height="240" viewBox="0 0 242.1 234">
-        <path transform="translate(-13.95 -3) scale(0.76)"
-          style="fill:#000000;fill-opacity:0.4;stroke-width:8;stroke-linecap:round"
-          d="M243.09,120A113.09,113.09,0,1,1,130,6.91,113.09,113.09,0,0,1,243.09,120Z" />
-      </svg>
-    </div>
-  </div>
+      <!-- frame and glow on top -->
+      <img class="moon-frame" src="https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/moon.png" alt="Moon frame">
+    </div> <!-- .moon-clip -->
+  </div> <!-- .moon-wrap -->
 
-  <!-- Text block (bottom + right variants) -->
+  <!-- text (bottom visible by default) -->
   <div class="textelement">
-    <div class="textright">
+    <div class="textright" aria-hidden="true">
       <div class="title" id="goalTitleRight"></div>
       <p class="text1" id="goalTextRight"></p>
     </div>
@@ -65,18 +48,13 @@
   </div>
 </div>
 
-<!-- === POPUP SPOTLIGHT OVERLAY (2x size) === -->
-<div id="goal-spotlight" class="goal-spotlight">
+<!-- Spotlight popup (2x size) -->
+<div id="goal-spotlight" class="goal-spotlight" aria-hidden="true">
   <div class="goal-spotlight-inner">
     <div class="goal-spotlight-video-wrap">
-      <video
-        class="goal-spotlight-video"
-        src="https://github.com/VerseMessiah/Overlay-Assets/raw/refs/heads/main/webms/FullMoon.webm"
-        autoplay
-        loop
-        muted
-        playsinline
-      ></video>
+      <video class="goal-spotlight-video"
+             src="https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/webms/FullMoon.webm"
+             autoplay loop muted playsinline></video>
     </div>
     <div class="goal-spotlight-text">
       <div class="goal-spotlight-title">Goal</div>

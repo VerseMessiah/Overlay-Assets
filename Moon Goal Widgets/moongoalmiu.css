@@ -1,572 +1,151 @@
-/* =========================================
-   VERSEMESSIAH BRAND PALETTE (BRAND GUIDE)
-   ========================================= */
-
-:root {
-  /* Core Blues */
+/* ========================
+   Brand color tokens
+   ======================== */
+:root{
   --vm-deep-navy:        #0c0f1a;
   --vm-midnight-blue:    #00366f;
   --vm-vivid-blue:       #0060c7;
   --vm-electric-sky:     #2293f8;
   --vm-indigo-blue:      #1e3a8a;
   --vm-sky-blue:         #1fb6ff;
-  --vm-near-black-navy:  #011627;
-  --vm-deep-space:       #0f1220;
-
-  /* Golds / Warm Tones */
   --vm-cosmic-gold:      #f9c80e;
-  --vm-light-peach:      #ffd3b5;
-
-  /* Purples / Magentas */
   --vm-soft-purple:      #b084f6;
   --vm-magenta-highlight:#ff57bb;
-
-  /* Aqua / Teal */
   --vm-neon-aqua:        #00ffd0;
-
-  /* Neutrals */
   --vm-metallic-silver:  #c4c4c4;
-  --vm-gunmetal-gray:    #b0b0b0;
-  --vm-charcoal-gray:    #3a3a3a;
-  --vm-dark-brown:       #29211e;
-  --vm-warm-skin-shadow: #8e4f3c;
-
-  /* Whites */
   --vm-bright-white:     #ffffff;
 }
 
-/* =========================================
-   WIDGET-LEVEL DEFAULTS
-   ========================================= */
-
-:root {
-  --scale: 0.9;
-
-  /* Default goal colors (used as fallback / base) */
-  --goal-fill1: var(--vm-bright-white);
-  --goal-fill2: var(--vm-sky-blue);
-
-  --goal-title-color: var(--vm-bright-white);
-  --goal-font-color:  var(--vm-bright-white);
-  --goal-glow:        var(--vm-bright-white);
-
-  --goal-font-name:   'Montserrat', sans-serif;
-  --goal-font-size:   20px;
-  --goal-title-size:  22px;
-  --goal-title-weight:700;
-
-  /* Radial gradient stops (overridable per goal) */
-  --goal-radial1: var(--vm-bright-white);
-  --goal-radial2: var(--vm-sky-blue);
-  --goal-radial3: var(--vm-electric-sky);
-}
-
-body {
-  transform: scale(var(--scale));
-  transform-origin: left center;
-  margin: 0;
-  padding: 0;
-  overflow: visible;
-  font-family: var(--goal-font-name);
-  background: transparent;
-}
-
-/* =========================================
-   CORE LAYOUT
-   ========================================= */
-
-.goal-widget {
-  position: relative;
-  width: 200px;
-  height: 180px;
-}
-
-.content {
-  zoom: 260%;
-  position: absolute;
-  width: 200px;
-  height: 180px;
-  top: 35px;
-  left: 27px;
-  overflow: visible;
-}
-
-.progress-cont {
-  filter: drop-shadow(0 0 8px var(--goal-glow));
-  bottom: -3px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.clipping_mask {
-  zoom: 70%;
-  position: absolute;
-  width: 200px;
-  height: 198px;
-  margin: 0;
-  bottom: 23px;
-  left: 56px;
-  clip-path: url(#fillclipping_mask);
-}
-
-/* =========================================
-   FILL / WATER
-   ========================================= */
-
-.fill,
-.fill2 {
-  background: linear-gradient(0deg, var(--goal-fill1) 0%, var(--goal-fill2) 100%);
-  position: absolute;
-  width: 450px;
-  bottom: 14px;
-  left: 0px;
-  transform-origin: bottom;
-  margin: 0;
-  padding-bottom: 15px;
-  clip-path: url(#movementclipping_mask);
-  animation: wave 3.5s infinite linear;
-  transition: height 0.5s ease-out;
-}
-
-.fill {
-  height: 100%;
-  filter: brightness(7.5);
-}
-
-.fill2 {
-  height: 98%;
-  animation-direction: reverse;
-  transform: translateX(-4%);
-}
-
-/* =========================================
-   VIDEO & FRONT ART
-   ========================================= */
-
-.shape-box {
-  width: 200px;
-  left: 0;
-  position: absolute;
-  bottom: 500px;
-  zoom: 64%;
-}
-
-.front {
-  position: absolute;
-  height: 195px;
-  bottom: -7px;
-  left: 11px;
-  z-index: 3;
-}
-
-/* =========================================
-   BACKDROP
-   ========================================= */
-
-.backdrop {
-  zoom: 182%;
-  position: relative;
-  width: 180px;
-  height: 180px;
-  bottom: -87px;
-  z-index: -35;
-  left: 98px;
-  opacity: 0.6;
-}
-
-/* =========================================
-   TEXT BLOCKS
-   ========================================= */
-
-.textelement {
-  zoom: 160%;
-  position: absolute;
-  width: 200px;
-  height: 180px;
-  top: 170px;
-  left: 100px;
-  overflow: visible;
-}
-
-/* default: bottom visible, right hidden */
-.textright,
-.textbottom {
-  color: var(--goal-font-color);
-  font-size: var(--goal-font-size);
-}
-
-.textright {
-  position: absolute;
-  left: 246px;
-  top: 15%;
-  z-index: 3;
-  width: 300%;
-  text-align: left;
-  transform: translateY(-50%);
-  visibility: hidden;
-}
-
-.textbottom {
-  position: absolute;
-  left: 20px;
-  top: 153px;
-  z-index: 3;
-  width: 200%;
-  transform: translateX(-22%);
-  text-align: center;
-  visibility: visible;
-}
-
-.title {
-  position: relative;
-  z-index: 4;
-  font-size: var(--goal-title-size);
-  font-family: var(--goal-font-name);
-  color: var(--goal-title-color);
-  margin-bottom: 0.3em;
-  font-weight: var(--goal-title-weight);
-}
-
-.text1 {
-  margin: 0;
-}
-
-/* Glow for text */
-.textGlowing {
-  filter: drop-shadow(0 0 10px var(--goal-glow));
-}
-
-/* Safety: your text element uses class="text1" */
-.textright .text1,
-.textbottom .text1 {
-  margin: 0;
-  position: relative;
-  width: 100%;
-  display: block;
-}
-
-/* =========================================
-   PARTICLES
-   ========================================= */
-
-.circle {
-  width: 10px;
-  height: 10px;
-  border-radius: 50px;
-  position: absolute;
-  display: none;
-  top: 200px;
-  z-index: -2;
-  background: none;
-}
-
-.h1  { transform: scale(0.9); opacity: 0.6; left: 5%;  animation: bubble 2.75s linear infinite, moveside      4s   ease-in-out infinite alternate; }
-.h2  { transform: scale(0.6); opacity: 0.9; left: 17%; animation: bubble 2s    linear infinite, movesideRight 7s   ease-in-out infinite alternate; }
-.h3  { transform: scale(0.6); opacity: 0.8; left: 29%; animation: bubble 3s    linear infinite, moveside      3s   ease-in-out infinite alternate; }
-.h4  { transform: scale(0.75);opacity: 0.9; left: 41%; animation: bubble 4s    linear infinite, movesideRight 2s   ease-in-out infinite alternate; }
-.h5  { transform: scale(0.5); opacity: 0.3; left: 53%; animation: bubble 1.5s  linear infinite, moveside      2.5s ease-in-out infinite alternate; }
-.h6  {                         opacity: 1;   left: 45%; animation: bubble 2.5s  linear infinite, moveside      5s   ease-in-out infinite alternate; }
-.h7  { transform: scale(0.4); opacity: 0.6; left: 10%; animation: bubble 3.5s  linear infinite, moveside      3.5s ease-in-out infinite alternate; }
-.h8  { transform: scale(0.8); opacity: 0.8; left: 60%; animation: bubble 4.5s  linear infinite, moveside      4.5s ease-in-out infinite alternate; }
-.h9  {                         opacity: 1;   left: 0%;  animation: bubble 5.5s  linear infinite, movesideRight 6s   ease-in-out infinite alternate; }
-.h10 { transform: scale(0.3); opacity: 0.8; left: 35%; animation: bubble 3.75s linear infinite, moveside      5.5s ease-in-out infinite alternate; }
-
-/* =========================================
-   KEYFRAMES
-   ========================================= */
-
-@keyframes bubble {
-  0%   { top: 90%; opacity: 1; transform: scale(1); }
-  100% { top: 20px; opacity: 0; transform: scale(2); }
-}
-
-@keyframes moveside {
-  from { margin-left: 0px; }
-  to   { margin-left: 50px; }
-}
-
-@keyframes movesideRight {
-  from { margin-left: 0px; }
-  to   { margin-left: -50px; }
-}
-
-@keyframes wave {
-  from { transform: translateX(-21%); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 0.6; }
-}
-
-/* =========================================
-   GOAL TYPE THEMES (CSS VARS)
-   =========================================
-   These override the base --goal-* variables
-   and the radial gradient stops per goal.
-   ========================================= */
-
-/* 💰 TIP / DONATION GOAL – Cosmic Gold / Indigo */
-.goal-tip {
-  --goal-fill1: var(--vm-cosmic-gold);
-  --goal-fill2: var(--vm-indigo-blue);
-  --goal-title-color: var(--vm-cosmic-gold);
-  --goal-font-color:  var(--vm-bright-white);
-  --goal-glow:        var(--vm-cosmic-gold);
-
-  --goal-radial1: var(--vm-cosmic-gold);
-  --goal-radial2: var(--vm-vivid-blue);
-  --goal-radial3: var(--vm-sky-blue);
-}
-
-/* ⭐ SUB GOAL – Soft Purple / Cosmic Gold */
-.goal-sub {
-  --goal-fill1: var(--vm-soft-purple);
-  --goal-fill2: var(--vm-cosmic-gold);
-  --goal-title-color: var(--vm-soft-purple);
-  --goal-font-color:  var(--vm-bright-white);
-  --goal-glow:        var(--vm-soft-purple);
-
-  --goal-radial1: var(--vm-soft-purple);
-  --goal-radial2: var(--vm-magenta-highlight);
-  --goal-radial3: var(--vm-cosmic-gold);
-}
-
-/* 🎉 BITS (CHEER) GOAL – Gunmetal / Vivid Blue / Silver */
-.goal-cheer {
-  --goal-fill1: var(--vm-gunmetal-gray);
-  --goal-fill2: var(--vm-vivid-blue);
-  --goal-title-color: #e5f0ff;
-  --goal-font-color:  var(--vm-bright-white);
-  --goal-glow:        var(--vm-metallic-silver);
-
-  --goal-radial1: var(--vm-metallic-silver);
-  --goal-radial2: var(--vm-vivid-blue);
-  --goal-radial3: var(--vm-sky-blue);
-}
-
-/* 👥 FOLLOWER GOAL – White / Sky Blue / Electric Sky */
-.goal-follower {
-  --goal-fill1: var(--vm-bright-white);
-  --goal-fill2: var(--vm-sky-blue);
-  --goal-title-color: #e5f0ff;
-  --goal-font-color:  var(--vm-bright-white);
-  --goal-glow:        var(--vm-electric-sky);
-
-  --goal-radial1: var(--vm-bright-white);
-  --goal-radial2: var(--vm-sky-blue);
-  --goal-radial3: var(--vm-electric-sky);
-}
-
-/* 💜 CHARITY GOAL – Neon Aqua / Soft Purple */
-.goal-charity {
-  --goal-fill1: var(--vm-neon-aqua);
-  --goal-fill2: var(--vm-soft-purple);
-  --goal-title-color: #e7f9ff;
-  --goal-font-color:  var(--vm-bright-white);
-  --goal-glow:        var(--vm-neon-aqua);
-
-  --goal-radial1: var(--vm-midnight-blue);
-  --goal-radial2: var(--vm-neon-aqua);
-  --goal-radial3: var(--vm-soft-purple);
-}
-
-/* =========================================
-   THEMES APPLIED TO MAIN + POPUP
-   ========================================= */
-
-.goal-follower .fill,
-.goal-follower .fill2,
-.goal-follower .goal-spotlight-video-wrap {
-  background: radial-gradient(
-    circle at 30% 20%,
-    var(--goal-radial1) 0%,
-    var(--goal-radial2) 40%,
-    var(--goal-radial3) 100%
-  );
-}
-
-.goal-follower .title,
-.goal-follower .textright,
-.goal-follower .textbottom,
-.goal-follower .goal-spotlight-title,
-.goal-follower .goal-spotlight-message,
-.goal-follower .goal-spotlight-progress {
-  color: #e5f0ff !important;
-}
-
-/* Subs */
-.goal-sub .fill,
-.goal-sub .fill2,
-.goal-sub .goal-spotlight-video-wrap {
-  background: radial-gradient(
-    circle at 30% 20%,
-    var(--goal-radial1) 0%,
-    var(--goal-radial2) 40%,
-    var(--goal-radial3) 100%
-  );
-}
-
-.goal-sub .title,
-.goal-sub .textright,
-.goal-sub .textbottom,
-.goal-sub .goal-spotlight-title,
-.goal-sub .goal-spotlight-message,
-.goal-sub .goal-spotlight-progress {
-  color: #fbe7ff !important;
-}
-
-/* Bits / Cheer */
-.goal-cheer .fill,
-.goal-cheer .fill2,
-.goal-cheer .goal-spotlight-video-wrap {
-  background: radial-gradient(
-    circle at 30% 20%,
-    var(--goal-radial1) 0%,
-    var(--goal-radial2) 40%,
-    var(--goal-radial3) 100%
-  );
-}
-
-.goal-cheer .title,
-.goal-cheer .textright,
-.goal-cheer .textbottom,
-.goal-cheer .goal-spotlight-title,
-.goal-cheer .goal-spotlight-message,
-.goal-cheer .goal-spotlight-progress {
-  color: #dcecff !important;
-}
-
-/* Charity */
-.goal-charity .fill,
-.goal-charity .fill2,
-.goal-charity .goal-spotlight-video-wrap {
-  background: radial-gradient(
-    circle at 30% 20%,
-    var(--goal-radial1) 0%,
-    var(--goal-radial2) 40%,
-    var(--goal-radial3) 100%
-  );
-}
-
-.goal-charity .title,
-.goal-charity .textright,
-.goal-charity .textbottom,
-.goal-charity .goal-spotlight-title,
-.goal-charity .goal-spotlight-message,
-.goal-charity .goal-spotlight-progress {
-  color: #e5fff8 !important;
-}
-
-/* Tip / Donation */
-.goal-tip .fill,
-.goal-tip .fill2,
-.goal-tip .goal-spotlight-video-wrap {
-  background: radial-gradient(
-    circle at 30% 20%,
-    var(--goal-radial1) 0%,
-    var(--goal-radial2) 40%,
-    var(--goal-radial3) 100%
-  );
-}
-
-.goal-tip .title,
-.goal-tip .textright,
-.goal-tip .textbottom,
-.goal-tip .goal-spotlight-title,
-.goal-tip .goal-spotlight-message,
-.goal-tip .goal-spotlight-progress {
-  color: var(--vm-cosmic-gold) !important;
-}
-
-/* =========================================
-   SPOTLIGHT POPUP (2x size)
-   ========================================= */
-
-.goal-spotlight {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0;
-  transform: scale(2); /* 2x size */
-  z-index: 999;
-}
-
-.goal-spotlight-inner {
-  position: relative;
+/* base widget sizing (tweak scale in MixItUp editor if needed) */
+.goal-widget{
+  --goal-fill-level: 0; /* 0..1 controlled by JS */
   width: 260px;
   height: 260px;
-  border-radius: 50%;
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
+  font-family: 'Montserrat', system-ui, sans-serif;
 }
 
-.goal-spotlight-video-wrap {
+/* center wrapper */
+.moon-wrap{
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  width: 200px;
+  height: 200px;
+}
+
+/* clipped container: uses the circle clipPath from HTML */
+.moon-clip{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ---------- FILL (behind texture) ---------- */
+/* fill container scales bottom->top using CSS variable */
+.moon-fill{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom center;
+  transform: scaleY(var(--goal-fill-level));
+  transition: transform 700ms cubic-bezier(.2,.9,.2,1);
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* actual fill color layers (use CSS vars overridden by theme classes) */
+.moon-fill-wave{
+  position: absolute;
+  left: -25%;
+  width: 150%;
+  height: 140%;
+  border-radius: 45% 55% 60% 40%;
+  mix-blend-mode: normal;
+  opacity: 1;
+  filter: blur(0px);
+}
+
+/* two overlapping waves to create motion */
+.moon-fill-wave.wave-a{
+  bottom: -10%;
+  animation: wave-move 6s linear infinite;
+  background: linear-gradient(180deg, var(--fill-top, #ffffff) 0%, var(--fill-bottom, #1fb6ff) 60%);
+}
+.moon-fill-wave.wave-b{
+  bottom: -18%;
+  animation: wave-move 8s linear infinite reverse;
+  opacity: 0.9;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.06) 60%);
+  mix-blend-mode: screen;
+}
+
+/* moon video texture — ALWAYS visible (on top of fill) */
+.moon-video{
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6));
-}
-
-.goal-spotlight-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.goal-spotlight-text {
-  position: relative;
   z-index: 2;
+  pointer-events: none;
+  /* keep texture visible; we keep it slightly blended so fill shows underneath naturally */
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+/* top frame (PNG) — sits above everything */
+.moon-frame{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* text bottom */
+.textelement{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 210px;
   text-align: center;
-  padding: 0.75em;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9);
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  pointer-events: none;
+  color: var(--text-color, #fff);
 }
-
-.goal-spotlight-title {
-  font-size: 22px;
+.title{
+  font-size: 20px;
+  color: var(--title-color, #fff);
   font-weight: 700;
-  margin-bottom: 0.25em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+.text1{ font-size: 16px; color: rgba(255,255,255,0.95); }
+
+/* wave animation */
+@keyframes wave-move {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-25%); }
 }
 
-.goal-spotlight-message {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 0.25em;
-}
+/* ------------------------------------------------
+   Theme overrides (set on #goalWidget via JS)
+   ------------------------------------------------ */
+.goal-follower { --fill-top: #ffffff; --fill-bottom: var(--vm-sky-blue); --title-color: #e5f0ff; --text-color: #e5f0ff; }
+.goal-sub      { --fill-top: var(--vm-soft-purple); --fill-bottom: var(--vm-cosmic-gold); --title-color: #fbe7ff; --text-color: #fbe7ff; }
+.goal-cheer    { --fill-top: var(--vm-metallic-silver); --fill-bottom: var(--vm-vivid-blue); --title-color: #dcecff; --text-color: #dcecff; }
+.goal-charity  { --fill-top: var(--vm-neon-aqua); --fill-bottom: var(--vm-soft-purple); --title-color: #e5fff8; --text-color: #e5fff8; }
 
-.goal-spotlight-progress {
-  font-size: 14px;
-}
-
-/* Grow + fade over 7 seconds */
-.goal-spotlight.visible {
-  animation: spotlightGrowFade 7s ease-in-out forwards;
-}
-
-@keyframes spotlightGrowFade {
-  0% {
-    opacity: 0;
-    transform: scale(1.6);
-  }
-  10% {
-    opacity: 1;
-    transform: scale(2);
-  }
-  90% {
-    opacity: 1;
-    transform: scale(2);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(2.3);
-  }
-}
+/* Spotlight popup (2x) */
+.goal-spotlight{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; opacity:0; transform:scale(2); z-index:999; }
+.goal-spotlight.visible{ animation: spotlightGrowFade 7s ease-in-out forwards; }
+.goal-spotlight-inner{ position:relative; width:260px; height:260px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.goal-spotlight-video-wrap{ position:absolute; inset:0; border-radius:50%; overflow:hidden; filter: drop-shadow(0 0 25px rgba(255,255,255,0.5)); }
+.goal-spotlight-video{ width:100%; height:100%; object-fit:cover; }
+.goal-spotlight-text{ position:relative; z-index:2; text-align:center; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.85); }
+@keyframes spotlightGrowFade { 0%{opacity:0;transform:scale(1.6)}10%{opacity:1;transform:scale(2)}90%{opacity:1;transform:scale(2)}100%{opacity:0;transform:scale(2.3)} }
