@@ -1,65 +1,37 @@
-<!-- Goal widget (clean, masked) -->
+<!-- CLIP DEFINITIONS (must be global in DOM) -->
+<svg width="0" height="0" style="position:absolute; left:0; top:0;">
+  <defs>
+    <clipPath id="vmMoonClip" clipPathUnits="objectBoundingBox">
+      <circle cx="0.5" cy="0.5" r="0.5" />
+    </clipPath>
+  </defs>
+</svg>
+
+<!-- MAIN WIDGET -->
 <div id="goalWidget" class="goal-widget goal-follower">
-  <!-- Inline SVG defs for clip paths (must be present in document) -->
-  <svg width="0" height="0" style="position:absolute;left:0;top:0;pointer-events:none" aria-hidden="true">
-    <defs>
-      <!-- circle clip for the moon (200x200 expected) -->
-      <clipPath id="vm_clip_circle" clipPathUnits="objectBoundingBox">
-        <!-- Use circle in objectBoundingBox coords (cx,cy,r are fractions) -->
-        <circle cx="0.5" cy="0.5" r="0.5"></circle>
-      </clipPath>
 
-      <!-- optional wave shape (we'll simulate in CSS, leaving a placeholder) -->
-      <clipPath id="vm_clip_wave">
-        <path d="M0 0.6 C0.125 0.52 0.25 0.68 0.375 0.62 C0.5 0.56 0.625 0.68 0.75 0.6 C0.875 0.52 1 0.66 1 0.66 L1 1 L0 1 Z" />
-      </clipPath>
-    </defs>
-  </svg>
+  <!-- Moon container -->
+  <div class="moon-shell">
 
-  <div class="moon-wrap">
-    <!-- everything inside this container will be clipped by the circle -->
-    <div class="moon-clip" style="clip-path: url(#vm_clip_circle); -webkit-clip-path: url(#vm_clip_circle);">
-      <!-- FILL (behind the moon video, grows from bottom) -->
-      <div class="moon-fill" aria-hidden="true">
-        <div class="moon-fill-wave wave-a"></div>
-        <div class="moon-fill-wave wave-b"></div>
-      </div>
+    <!-- Wave fill (bottom → top) -->
+    <div class="moon-fill">
+      <div class="wave wave-a"></div>
+      <div class="wave wave-b"></div>
+    </div>
 
-      <!-- moon texture/video (always visible) -->
-      <video class="moon-video"
-             src="https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/webms/FullMoon.webm"
-             autoplay loop muted playsinline></video>
+    <!-- Shimmer layer -->
+    <div class="moon-shimmer"></div>
 
-      <!-- frame and glow on top -->
-      <img class="moon-frame" src="https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/moon.png" alt="Moon frame">
-    </div> <!-- .moon-clip -->
-  </div> <!-- .moon-wrap -->
+    <!-- PNG Moon Texture -->
+    <img class="moon-texture"
+         src="https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/moon.png" />
 
-  <!-- text (bottom visible by default) -->
+  </div>
+
+  <!-- Text Block -->
   <div class="textelement">
-    <div class="textright" aria-hidden="true">
-      <div class="title" id="goalTitleRight"></div>
-      <p class="text1" id="goalTextRight"></p>
-    </div>
-    <div class="textbottom">
-      <div class="title" id="goalTitleBottom"></div>
-      <p class="text1" id="goalTextBottom"></p>
-    </div>
+    <div class="title" id="goalTitleBottom"></div>
+    <p class="text1" id="goalTextBottom"></p>
   </div>
-</div>
 
-<!-- Spotlight popup (2x size) -->
-<div id="goal-spotlight" class="goal-spotlight" aria-hidden="true">
-  <div class="goal-spotlight-inner">
-    <div class="goal-spotlight-video-wrap">
-      <video class="goal-spotlight-video"
-             src="https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/webms/FullMoon.webm"
-             autoplay loop muted playsinline></video>
-    </div>
-    <div class="goal-spotlight-text">
-      <div class="goal-spotlight-title">Goal</div>
-      <div class="goal-spotlight-message">New event</div>
-      <div class="goal-spotlight-progress">0 / 0 (0%)</div>
-    </div>
-  </div>
 </div>

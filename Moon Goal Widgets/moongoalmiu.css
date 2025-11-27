@@ -1,7 +1,7 @@
 /* ========================
-   Brand color tokens
+   Brand colors (no font face for now)
    ======================== */
-:root{
+:root {
   --vm-deep-navy:        #0c0f1a;
   --vm-midnight-blue:    #00366f;
   --vm-vivid-blue:       #0060c7;
@@ -16,136 +16,212 @@
   --vm-bright-white:     #ffffff;
 }
 
-/* base widget sizing (tweak scale in MixItUp editor if needed) */
-.goal-widget{
-  --goal-fill-level: 0; /* 0..1 controlled by JS */
+/* ========================
+   Base widget
+   ======================== */
+
+.goal-widget {
+  --goal-fill-level: 0;       /* 0 → 1, JS sets this */
+  --fill-top:   #ffffff;
+  --fill-bottom:#1fb6ff;
+
   width: 260px;
-  height: 260px;
+  height: 300px;
   position: relative;
-  font-family: 'Montserrat', system-ui, sans-serif;
+}
+/* FIX TEXT VISIBILITY IN MELD */
+.textelement .title,
+.textelement .text1 {
+  font-family: inherit !important;
+  color: #F9C80E !important;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8), 
+               0 0 20px rgba(0,0,0,0.8);
+  font-weight: 600 !important;
+  z-index: 999999 !important;
+  mix-blend-mode: normal !important;
 }
 
-/* center wrapper */
-.moon-wrap{
-  position: absolute;
-  left: 16px;
-  top: 8px;
+
+/* ========================
+   Moon clipped container
+   ======================== */
+
+.moon-shell {
   width: 200px;
   height: 200px;
-}
-
-/* clipped container: uses the circle clipPath from HTML */
-.moon-clip{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-/* ---------- FILL (behind texture) ---------- */
-/* fill container scales bottom->top using CSS variable */
-.moon-fill{
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  transform-origin: bottom center;
+  left: 20px;
+  top: 10px;
+
+  clip-path: url(#vmMoonClip);
+  -webkit-clip-path: url(#vmMoonClip);
+  overflow: hidden;
+
+}
+
+/* ========================
+   Fill (bottom → top)
+   ======================== */
+
+/* PERFECT-SIZE FILL AREA */
+.moon-fill {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+
+  /* bottom → top scaling */
+  transform-origin: bottom;
   transform: scaleY(var(--goal-fill-level));
   transition: transform 700ms cubic-bezier(.2,.9,.2,1);
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
 }
 
-/* actual fill color layers (use CSS vars overridden by theme classes) */
-.moon-fill-wave{
+/* WAVES exactly sized to moon */
+.wave {
   position: absolute;
-  left: -25%;
-  width: 150%;
-  height: 140%;
-  border-radius: 45% 55% 60% 40%;
-  mix-blend-mode: normal;
+  width: 120%;      /* same size as the moon */
+  height: 120%;     /* same size as the moon */
+  left: -10;
+  top: -5;           /* no vertical offset => no overhang */
+  border-radius: 55% 45% 60% 40%; /* circular waves look better inside a circle */
+  opacity: 0.75;
+  filter: blure(2px);
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: lighten;  
+}
+
+/* FRONT WAVE (color) */
+.wave-a {
+  background: linear-gradient(
+    180deg,
+    var(--fill-top),
+    var(--fill-bottom)
+  );
+  animation: waveMove 12s linear infinite;
   opacity: 1;
-  filter: blur(0px);
 }
 
-/* two overlapping waves to create motion */
-.moon-fill-wave.wave-a{
-  bottom: -10%;
-  animation: wave-move 6s linear infinite;
-  background: linear-gradient(180deg, var(--fill-top, #ffffff) 0%, var(--fill-bottom, #1fb6ff) 60%);
-}
-.moon-fill-wave.wave-b{
-  bottom: -18%;
-  animation: wave-move 8s linear infinite reverse;
-  opacity: 0.9;
-  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.06) 60%);
+/* BACK WAVE (light shimmer) */
+.wave-b {
+  background: linear gradient (
+    180deg,
+    rgba(255,255,255,0.25),
+    rgba(0,0,0,0.10)
+  );
   mix-blend-mode: screen;
+  animation: waveMove 16s linear infinite reverse;
+  opacity: 0.8;
 }
 
-/* moon video texture — ALWAYS visible (on top of fill) */
-.moon-video{
+
+/* ========================
+   Shimmer overlay
+   ======================== */
+
+.moon-shimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255,255,255,0.20),
+    rgba(255,255,255,0.02) 60%
+  );
+  mix-blend-mode: screen;
+  opacity: 1;
+  animation: shimmerDrift 5s ease-in-out infinite;
+}
+
+/* ========================
+   Moon texture (PNG)
+   ======================== */
+
+.moon-texture {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 2;
-  pointer-events: none;
-  /* keep texture visible; we keep it slightly blended so fill shows underneath naturally */
   mix-blend-mode: normal;
-  opacity: 1;
-}
-
-/* top frame (PNG) — sits above everything */
-.moon-frame{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  opacity: 5;
   z-index: 3;
-  pointer-events: none;
 }
 
-/* text bottom */
-.textelement{
+/* ========================
+   Text
+   ======================== */
+.textelement {
   position: absolute;
   left: 0;
   right: 0;
-  top: 210px;
+  top: 225px;
   text-align: center;
+  line-height: 1.25;
   pointer-events: none;
-  color: var(--text-color, #fff);
 }
-.title{
-  font-size: 20px;
-  color: var(--title-color, #fff);
+
+.title {
+  font-size: 22px;
   font-weight: 700;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.6);
-}
-.text1{ font-size: 16px; color: rgba(255,255,255,0.95); }
-
-/* wave animation */
-@keyframes wave-move {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-25%); }
+  text-shadow: 0 2px 12px rgba(0,0,0,0.8);
+  line-height: 1.25;
 }
 
-/* ------------------------------------------------
-   Theme overrides (set on #goalWidget via JS)
-   ------------------------------------------------ */
-.goal-follower { --fill-top: #ffffff; --fill-bottom: var(--vm-sky-blue); --title-color: #e5f0ff; --text-color: #e5f0ff; }
-.goal-sub      { --fill-top: var(--vm-soft-purple); --fill-bottom: var(--vm-cosmic-gold); --title-color: #fbe7ff; --text-color: #fbe7ff; }
-.goal-cheer    { --fill-top: var(--vm-metallic-silver); --fill-bottom: var(--vm-vivid-blue); --title-color: #dcecff; --text-color: #dcecff; }
-.goal-charity  { --fill-top: var(--vm-neon-aqua); --fill-bottom: var(--vm-soft-purple); --title-color: #e5fff8; --text-color: #e5fff8; }
+.text1 {
+  font-size: 20px;
+  opacity: 1;
+  text-shadow: 0 0 6px rgba(0,0,0,0.8);
+  line-height: 1.25;
+}
 
-/* Spotlight popup (2x) */
-.goal-spotlight{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; opacity:0; transform:scale(2); z-index:999; }
-.goal-spotlight.visible{ animation: spotlightGrowFade 7s ease-in-out forwards; }
-.goal-spotlight-inner{ position:relative; width:260px; height:260px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-.goal-spotlight-video-wrap{ position:absolute; inset:0; border-radius:50%; overflow:hidden; filter: drop-shadow(0 0 25px rgba(255,255,255,0.5)); }
-.goal-spotlight-video{ width:100%; height:100%; object-fit:cover; }
-.goal-spotlight-text{ position:relative; z-index:2; text-align:center; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.85); }
-@keyframes spotlightGrowFade { 0%{opacity:0;transform:scale(1.6)}10%{opacity:1;transform:scale(2)}90%{opacity:1;transform:scale(2)}100%{opacity:0;transform:scale(2.3)} }
+
+/* ========================
+   Goal-type themes
+   ======================== */
+
+/* Follower: white → sky blue */
+.goal-follower {
+  --fill-top:    #ffffff;
+  --fill-bottom: var(--vm-sky-blue);
+}
+
+/* Subs: soft purple → cosmic gold */
+.goal-sub {
+  --fill-top:    var(--vm-soft-purple);
+  --fill-bottom: var(--vm-cosmic-gold);
+}
+
+/* Bits: silver → vivid blue */
+.goal-cheer {
+  --fill-top:    var(--vm-metallic-silver);
+  --fill-bottom: var(--vm-vivid-blue);
+}
+
+/* Charity: neon aqua → soft purple */
+.goal-charity {
+  --fill-top:    var(--vm-neon-aqua);
+  --fill-bottom: var(--vm-soft-purple);
+}
+
+/* ========================
+   Animations
+   ======================== */
+
+@keyframes waveMove {
+  from { transform: translateX(0%) translateY(0%); }
+  to   { transform: translateX(-5%) translateY(0%); }
+}
+
+@keyframes shimmerDrift {
+  0%   { transform: translate(-8px, -6px) scale(1.02); }
+  50%  { transform: translate( 8px,  6px) scale(1.05); }
+  100% { transform: translate(-8px, -6px) scale(1.02); }
+}
+
+@keyframes spotlightGrowFade {
+  0%   { opacity: 0;   transform: scale(1.6); }
+  10%  { opacity: 1;   transform: scale(2.0); }
+  90%  { opacity: 1;   transform: scale(2.0); }
+  100% { opacity: 0;   transform: scale(2.3); }
+}
