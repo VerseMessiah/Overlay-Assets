@@ -1,7 +1,15 @@
 /* ========================
-   Brand colors (no font face for now)
+   Brand colors
    ======================== */
-:root {
+  @font-face {
+    font-family: 'XLOELX';
+    src: url('https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/fonts/XLOELX.woff2') format('woff2');
+    font-weight: normal;
+    font-sytle: normal;
+    font-display: swap;
+  }
+
+   :root {
   --vm-deep-navy:        #0c0f1a;
   --vm-midnight-blue:    #00366f;
   --vm-vivid-blue:       #0060c7;
@@ -32,7 +40,7 @@
 /* FIX TEXT VISIBILITY IN MELD */
 .textelement .title,
 .textelement .text1 {
-  font-family: inherit !important;
+  font-family: 'XLOELX' !important;
   color: #F9C80E !important;
   text-shadow: 0 0 10px rgba(0,0,0,0.8), 
                0 0 20px rgba(0,0,0,0.8);
@@ -152,6 +160,7 @@
    Text
    ======================== */
 .textelement {
+  font-family: 'XLOELX';
   position: absolute;
   left: 0;
   right: 0;
