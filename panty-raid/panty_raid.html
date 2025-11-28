@@ -1,1 +1,104 @@
-y
+<script>
+const imgPaths = [
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/SuperBoxers.png",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/SuperDuperLacey.png",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/DuperDuperLacey2.png",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/SuperPanty1.png",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/SuperPantyBlack.png",
+  "https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/images/SuperRedandBlack.png",
+];
+
+// CONFIG
+const imgCount = 25;
+const lifeSpan = 15000;
+const minSize = 100;
+const maxSize = 250;
+const effects = ['floaty', 'drift', 'spin', 'wiggle', 'pulse'];
+const durations = [2, 4, 6];
+const columns = 8; // how many “slots” across screen
+const rows = 8;    // how many “slots” down screen
+
+let lastUsedImg = null;
+
+// Helper: create sparkles near a PNG
+function spawnSparkle(x, y) {
+  const sparkle = document.createElement('div');
+  sparkle.className = 'sparkle';
+  sparkle.style.left = x + Math.random() * 40 - 20 + 'px';
+  sparkle.style.top  = y + Math.random() * 40 - 20 + 'px';
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 14000);
+}
+
+// Generate grid slots for spacing
+const positions = [];
+for (let r = 0; r < rows; r++) {
+  for (let c = 0; c < columns; c++) {
+    positions.push({
+      left: (c * (100 / columns)) + (Math.random() * (100 / columns / 2)) + '%',
+      top: (r * (100 / rows)) + (Math.random() * (100 / rows / 2)) + '%'
+    });
+  }
+}
+
+// Shuffle positions
+for (let i = positions.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [positions[i], positions[j]] = [positions[j], positions[i]];
+}
+
+for (let i = 0; i < imgCount && i < positions.length; i++) {
+  let imgSrc;
+  do {
+    imgSrc = imgPaths[Math.floor(Math.random() * imgPaths.length)];
+  } while (imgSrc === lastUsedImg && imgPaths.length > 1);
+  lastUsedImg = imgSrc;
+
+  // Wrapper handles drifting
+  const wrapper = document.createElement('div');
+  wrapper.className = 'drift-wrapper';
+  const direction = Math.random() > 0.5 ? 1 : -1;
+
+  // pick a random drift cycle time from durations
+  const driftDuration = durations[Math.floor(Math.random() * durations.length)];
+  const driftSpeed = (Math.random() * 1.5 + 1.5); // randomize overall timing
+  wrapper.style.animation = `gentleDrift ${driftDuration * driftSpeed}s linear infinite`;
+
+  wrapper.style.transform = `scaleX(${direction})`;
+  wrapper.style.position = 'absolute';
+  wrapper.style.left = positions[i].left;
+  wrapper.style.top = positions[i].top;
+  wrapper.style.zIndex = 9999;
+
+
+  // The actual PNG inside
+  const img = document.createElement('img');
+  img.src = imgSrc;
+  img.className = 'floating-img';
+  const size = Math.random() * (maxSize - minSize) + minSize;
+  img.style.width = size + 'px';
+
+  // Add random spin/pulse/etc
+  const effect = effects[Math.floor(Math.random() * effects.length)];
+  const effectDuration = durations[Math.floor(Math.random() * durations.length)];
+  img.style.animation = `
+    ${effect} ${effectDuration}s ease-in-out infinite,
+    fadeFloat ${lifeSpan/1000}s ease-in-out forwards
+  `;
+
+  wrapper.appendChild(img);
+  document.body.appendChild(wrapper);
+
+  // Sparkles follow the wrapper (drifting element)
+  const sparkleInterval = setInterval(() => {
+    const rect = wrapper.getBoundingClientRect();
+    spawnSparkle(rect.left + rect.width/2, rect.top + rect.height/2);
+  }, 300 + Math.random() * 400);
+
+  setTimeout(() => {
+    clearInterval(sparkleInterval);
+    wrapper.remove();
+  }, lifeSpan);
+}
+
+</script>
