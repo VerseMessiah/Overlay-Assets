@@ -3,7 +3,7 @@
    ======================== */
   @font-face {
     font-family: 'XLOELX';
-    src: url('https://raw.githubusercontent.com/VerseMessiah/Overlay-Assets/main/fonts/XLOELX.woff2') format('woff2');
+    src: url('https://cdn.jsdelivr.net/gh/VerseMessiah/Overlay-Assets/fonts/XLOEX.woff2') format('woff2');
     font-weight: normal;
     font-sytle: normal;
     font-display: swap;
@@ -33,7 +33,7 @@
   --fill-top:   #ffffff;
   --fill-bottom:#1fb6ff;
 
-  width: 260px;
+  width: 300px;
   height: 300px;
   position: relative;
 }
@@ -58,7 +58,7 @@
   width: 200px;
   height: 200px;
   position: absolute;
-  left: 20px;
+  left: 50px;
   top: 10px;
 
   clip-path: url(#vmMoonClip);
@@ -161,7 +161,7 @@
    ======================== */
 .textelement {
   font-family: 'XLOELX';
-  position: absolute;
+  position: relative;
   left: 0;
   right: 0;
   top: 225px;
